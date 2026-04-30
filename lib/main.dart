@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'core/constants/app_strings.dart';
 import 'core/di/app_dependency.dart';
 import 'features/customer/presentation/cubit/customer_bloc.dart';
 import 'features/customer/presentation/cubit/sync_bloc.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         builder: (_, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Customer Visits',
+            title: AppStrings.appTitle,
             theme: ThemeData(
               useMaterial3: true,
               colorScheme: ColorScheme.fromSeed(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/sync_status.dart';
 import '../../../../core/constants/visit_status.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../domain/entities/customer.dart';
 import '../cubit/customer_bloc.dart';
 import '../cubit/customer_event.dart';
@@ -71,7 +72,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
     final isSynced = widget.customer.syncStatus == SyncStatus.synced;
     final initials = widget.customer.name.isNotEmpty
         ? widget.customer.name.trim().split(' ').map((e) => e[0]).take(2).join()
-        : '?';
+        : AppStrings.unknownInitial;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FF),
@@ -182,7 +183,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
                             ),
                             SizedBox(width: 4.w),
                             Text(
-                              isSynced ? 'Synced' : 'Pending Sync',
+                              isSynced ? AppStrings.synced : AppStrings.pendingSync,
                               style: TextStyle(
                                 fontSize: 11.sp,
                                 fontWeight: FontWeight.w600,
@@ -215,28 +216,28 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
                     children: [
                       // Contact info card
                       _SectionCard(
-                        title: 'Contact Information',
+                        title: AppStrings.sectionContactInfo,
                         icon: Icons.person_outline_rounded,
                         children: [
                           _InfoRow(
                               icon: Icons.phone_outlined,
-                              label: 'Phone',
+                              label: AppStrings.labelPhone,
                               value: widget.customer.phone),
                           _divider(),
                           _InfoRow(
                               icon: Icons.email_outlined,
-                              label: 'Email',
+                              label: AppStrings.labelEmail,
                               value: widget.customer.email),
                           _divider(),
                           _InfoRow(
                               icon: Icons.location_on_outlined,
-                              label: 'Address',
+                              label: AppStrings.labelAddress,
                               value: widget.customer.address),
                           if (widget.customer.lastVisitDate != null) ...[
                             _divider(),
                             _InfoRow(
                                 icon: Icons.calendar_today_outlined,
-                                label: 'Last Visit',
+                                label: AppStrings.labelLastVisit,
                                 value: widget.customer.lastVisitDate!),
                           ],
                         ],
@@ -246,7 +247,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
 
                       // Visit Status card
                       _SectionCard(
-                        title: 'Visit Status',
+                        title: AppStrings.sectionVisitStatus,
                         icon: Icons.flag_outlined,
                         children: [
                           SizedBox(height: 4.h),
@@ -327,7 +328,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
 
                       // Notes card
                       _SectionCard(
-                        title: 'Visit Notes',
+                        title: AppStrings.sectionVisitNotes,
                         icon: Icons.notes_rounded,
                         children: [
                           SizedBox(height: 4.h),
@@ -340,7 +341,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
                             ),
                             decoration: InputDecoration(
                               hintText:
-                                  'Add notes about this visit…',
+                                  AppStrings.notesHint,
                               hintStyle: TextStyle(
                                 color: Colors.grey.shade400,
                                 fontSize: 13.sp,
@@ -394,7 +395,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
                                     Icon(Icons.add_circle_outline_rounded, size: 16.sp),
                                     SizedBox(height: 2.h),
                                     Text(
-                                      'Log Visit',
+                                      AppStrings.btnLogVisit,
                                       style: TextStyle(
                                         fontSize: 11.sp,
                                         fontWeight: FontWeight.w600,
@@ -428,7 +429,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
                                     Icon(Icons.save_rounded, size: 18.sp),
                                     SizedBox(width: 8.w),
                                     Text(
-                                      'Save Changes',
+                                      AppStrings.btnSaveChanges,
                                       style: TextStyle(
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.w700,
@@ -475,11 +476,11 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
   String _visitStatusLabel(VisitStatus s) {
     switch (s) {
       case VisitStatus.visited:
-        return 'Visited';
+        return AppStrings.statusVisited;
       case VisitStatus.notAvailable:
-        return 'Not\nAvailable';
+        return AppStrings.statusNotAvailable;
       case VisitStatus.pending:
-        return 'Pending';
+        return AppStrings.statusPending;
     }
   }
 
@@ -508,7 +509,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
             const Icon(Icons.cloud_upload_rounded,
                 color: Colors.white, size: 18),
             const SizedBox(width: 10),
-            const Text('Saved locally · queued for sync'),
+            const Text(AppStrings.snackSavedLocally),
           ],
         ),
         backgroundColor: const Color(0xFF4C6EF5),
@@ -534,7 +535,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen>
             const Icon(Icons.add_location_alt_rounded,
                 color: Colors.white, size: 18),
             const SizedBox(width: 10),
-            const Text('New visit logged · queued for sync'),
+            const Text(AppStrings.snackVisitLogged),
           ],
         ),
         backgroundColor: const Color(0xFF2ECC71),
